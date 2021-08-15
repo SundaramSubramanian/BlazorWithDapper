@@ -1,0 +1,82 @@
+﻿
+@page "/"
+
+<h2>Sales Entries</h2>
+<hr />
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="ProductName" class="control-label">Product Name</label>
+                <input for="ProductName" class="form-control" @bind="@sales.ProductName" />
+            </div>
+            <div class="form-group">
+                <label for="Quantity" class="control-label">Quantity</label>
+                <input for="Quantity" class="form-control" @bind="@sales.Quantity" />
+            </div>
+        </div>
+    </div>
+
+    @if (sales.IsUpdate)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" @onclick="@UpdateSales" value="Update" />
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" @onclick="@CreateSales" value="Save" />
+
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (salesEntries == null)
+    {
+        <h3>Please wait, Loading the data.</h3>
+    }
+    else
+    {
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sales in salesEntries)
+                {
+                    <tr>
+                        <td>@sales.ProductName</td>
+                        <td>@sales.Quantity</td>
+                        <td>
+                            <input type="button" value="Edit" @onclick="() => GetSalesById(sales.SalesId)" class="btn btn-primary" />
+                            <input type="button" value="Delete" @onclick="() => DeleteSales(sales.SalesId)" class="btn btn-danger" />
+
+                        </td>
+                    </tr>
+
+
+
+                }
+            </tbody>
+        </table>
+    }
+
+</form>
+
+@code {
+
+
+} 
